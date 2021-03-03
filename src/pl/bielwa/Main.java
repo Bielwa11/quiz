@@ -41,7 +41,7 @@ public class Main {
         while (questionIndex < 15) {
             int index = random.nextInt(keys.size());
             String word = keys.get(index);
-            System.out.println("(Pytanie " + (questionIndex+ 1) + "/15)");
+            System.out.println("(Pytanie " + (questionIndex + 1) + "/15)");
             System.out.println("Przetłumacz słowo " + word);
             String wordFromUser = quizScanner.nextLine();
 
@@ -50,17 +50,16 @@ public class Main {
                 System.out.println("Zgadza się!");
                 score++;
             } else {
-                System.out.println("NIESTETY blad");
+                System.out.println("NIESTETY blad...");
             }
             questionIndex++;
         }
         System.out.println("Twój wynik to " + score + "/15");
-        if (score == 13) {
-            System.out.println("Bardzo dobrze! 90% poprawych odpowiedzi");
-        } else if (score == 3) {
-            System.out.println("Tylko 15% - musisz jeszcze popracować");
+        double finalScore = score / questionIndex;
+        if (score >= 10) {
+            System.out.println("Bardzo dobrze!" + finalScore + "% poprawych odpowiedzi");
         } else {
-            System.out.println("Dobrze ci poszło!");
+            System.out.println("Niestety! Tylko " + finalScore + "% poprawnych odpowiedzi");
         }
     }
 }
