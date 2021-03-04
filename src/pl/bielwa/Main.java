@@ -6,6 +6,10 @@ public class Main {
     private Object scores;
 
     public static void main(String[] args) {
+        
+        NewQuiz quizz new NewQuiz();
+        quizz,initiateQuiz();
+        
         Scanner scanner = new Scanner(System.in);
         Map<String, String> dictionary = new HashMap<>(Map.of("arrow", "strzała", "shop", "sklep", "phone", "telefon", "accept", "akceptować", "after", "później", "add", "dodawać", "air", "powietrze", "machine", "maszyna", "meat", "mięso", "never", "nigdy"));
         dictionary.putIfAbsent("book", "książka");
@@ -30,6 +34,9 @@ public class Main {
             }
 
         }
+    }
+
+    private initiateQuiz() {
     }
 
     private static void initiateQuiz(Map<String, String> dictionary) {
