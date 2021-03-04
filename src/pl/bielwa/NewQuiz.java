@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class NewQuiz {
 
     public static final double GOOD_ENOUGH_NUMBER = 60.0;
+    public static final double SCORE_GOOD_ENOUGH = 70.0;
 
     Random random = new Random();
     Scanner scanner = new Scanner(System.in);
@@ -109,8 +110,8 @@ public class NewQuiz {
         }
 
         System.out.println("Twój wynik to " + score + "/" + QUESTIONS_NUMBER);
-        double finalScore = score / questionIndex;
-        if (finalScore > 7.0) {
+        double finalScore = (double)score / (double)questionIndex *100;
+        if (finalScore >= SCORE_GOOD_ENOUGH) {
             System.out.println("Bardzo dobrze!" + finalScore + "% poprawych odpowiedzi");
         } else {
             System.out.println("Niestety! Tylko " + finalScore + "% poprawnych odpowiedzi");
