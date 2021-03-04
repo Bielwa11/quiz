@@ -9,14 +9,13 @@ import java.util.Scanner;
 
 public class NewQuiz {
 
-    public static final double GOOD_ENOUGH_NUMBER = 60.0;
-    public static final double SCORE_GOOD_ENOUGH = 70.0;
+    public static final double SCORE_GOOD_ENOUGH = 60.0;
 
     Random random = new Random();
     Scanner scanner = new Scanner(System.in);
     Map<String, String> dictionary = new HashMap<>(Map.of("arrow", "strzała", "shop", "sklep", "phone", "telefon", "accept", "akceptować", "after", "później", "add", "dodawać", "air", "powietrze", "machine", "maszyna", "meat", "mięso", "never", "nigdy"));
     public static final int QUESTIONS_NUMBER = 16;
-
+    private Object finalScore;
 
     public NewQuiz() {
 
@@ -76,9 +75,8 @@ public class NewQuiz {
 
 
     private void printOptions() {
-
         System.out.println("Jeśli klikniesz 1 rozpoczniesz quiz z tłumczenia słowek");
-        System.out.println("Najwyższy wynik quizu to " + (GOOD_ENOUGH_NUMBER) * 100);
+        System.out.println("Najwyższy wynik quizu to " + finalScore);
         System.out.println("Jeśli klikniesz 2 zamkniesz program");
 
     }
@@ -110,7 +108,7 @@ public class NewQuiz {
         }
 
         System.out.println("Twój wynik to " + score + "/" + QUESTIONS_NUMBER);
-        double finalScore = (double)score / (double)questionIndex *100;
+        double finalScore = (double) score / (double) questionIndex * 100;
         if (finalScore >= SCORE_GOOD_ENOUGH) {
             System.out.println("Bardzo dobrze!" + finalScore + "% poprawych odpowiedzi");
         } else {
@@ -124,6 +122,18 @@ public class NewQuiz {
         String word = keys.get(index);
         return word;
     }
+
+    public void highScore() {
+        int highScore = 0;
+        if((double)finalScore > (double) highScore){
+            finalScore = highScore;
+        }
+
+
+    }
+
+
+
 }
 
 

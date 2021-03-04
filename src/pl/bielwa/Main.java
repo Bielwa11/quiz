@@ -7,6 +7,7 @@ public class Main {
         NewQuiz quizz = new NewQuiz();
         quizz.fillMap();
         quizz.initiate();
+        quizz.highScore();
     }
 }
 
