@@ -47,9 +47,30 @@ public class NewQuiz {
 
 
     private void greetings() {
-        System.out.println("Cześć, jak masz na imię");
-        String nameUser = scanner.nextLine();
-        System.out.println("Cześć " + nameUser);
+            languageSelection();
+            String language = scanner.nextLine();
+            if(language.equals("3")){
+                System.out.println("Cześć, jak masz na imię");
+                String nameUser = scanner.nextLine();
+                System.out.println("Cześć " + nameUser);
+            }else if(language.equals("4")){
+                printOptionsEnglish();
+                System.out.println("Hello what's your name");
+                String nameUser = scanner.nextLine();
+                System.out.println("Hello " + nameUser);
+            }
+    }
+
+    private void printOptionsEnglish() {
+        System.out.println("If you click 1 you will start the word translation quiz");
+        System.out.println("The highest score of the quiz is " + highScore);
+        System.out.println("If you click 2 you can add your word");
+        System.out.println("If you click 3 you will close the program");
+    }
+
+    private void languageSelection() {
+        System.out.println("Jeśli klikniesz 3 Quzi będzie w języku polskim");
+        System.out.println("Jeśli klikniesz 4 Quzi będzie w języku angielskim");
     }
 
 
@@ -60,16 +81,27 @@ public class NewQuiz {
             if (option.equals("1")) {
                 runQuiz(dictionary);
             } else if (option.equals("2")) {
+                ownWord(dictionary);
+            } else if (option.equals("3")) {
                 break;
             }
         }
+    }
+
+    private void ownWord(Map<String, String> dictionary) {
+        System.out.println("Wpisz słowo po polsku");
+        String polishWord = scanner.nextLine();
+        System.out.println("Wpisz słowo po angielsku");
+        String englishWord = scanner.nextLine();
+        dictionary.putIfAbsent(englishWord, polishWord);
     }
 
 
     private void printOptions() {
         System.out.println("Jeśli klikniesz 1 rozpoczniesz quiz z tłumczenia słowek");
         System.out.println("Najwyższy wynik quizu to " + highScore);
-        System.out.println("Jeśli klikniesz 2 zamkniesz program");
+        System.out.println("Jeśli klikniesz 2 możesz dodać swoje słowo");
+        System.out.println("Jeśli klikniesz 3 zamkniesz program");
     }
 
 
@@ -104,10 +136,9 @@ public class NewQuiz {
     }
 
     private void saveHighScoreIfNeeded(double finalScore) {
-        if(Double.compare(finalScore,highScore)>0){
+        if (Double.compare(finalScore, highScore) > 0) {
             highScore = finalScore;
-        }
-        else{
+        } else {
             //nic sie nie dzieje, highscore zostaje taki sam.
             //przyklad komentarza
 
