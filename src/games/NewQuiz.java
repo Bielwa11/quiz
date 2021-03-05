@@ -1,42 +1,69 @@
 package games;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class NewQuiz {
     private static final double SCORE_GOOD_ENOUGH = 60.0;
     private Random random = new Random();
     private Scanner scanner = new Scanner(System.in);
-    private Map<String, String> dictionary = new HashMap<>();
+    private Map<String, Map<String, String>> dictionaries = new HashMap<>();
     private static final int QUESTIONS_NUMBER = 16;
     private double highScore = 0.0;
+    private Map<String, String> currentLanguage;
 
     public NewQuiz() {
-        fillMap();
+        fillAllDictionaries();
     }
 
 
-    public void fillMap() {
-        dictionary.putIfAbsent("never", "nigdy");
-        dictionary.putIfAbsent("meat", "mięso");
-        dictionary.putIfAbsent("machine", "maszyna");
-        dictionary.putIfAbsent("air", "powietrze");
-        dictionary.putIfAbsent("add", "dodawać");
-        dictionary.putIfAbsent("after", "później");
-        dictionary.putIfAbsent("accept", "akceptować");
-        dictionary.putIfAbsent("phone", "telefon");
-        dictionary.putIfAbsent("shop", "sklep");
-        dictionary.putIfAbsent("arrow", "strzała");
-        dictionary.putIfAbsent("book", "książka");
-        dictionary.putIfAbsent("continue", "kontynuować");
-        dictionary.putIfAbsent("cool", "chłodny");
-        dictionary.putIfAbsent("definition", "definicja");
-        dictionary.putIfAbsent("factory", "fabryka");
-        dictionary.putIfAbsent("bike", "rower");
+    public void fillAllDictionaries() {
+        fillEnglishDictionary();
+        fillItalianDictionary();
+    }
+
+    private void fillItalianDictionary() {
+        Map<String, String> italianDictionary = new HashMap<>();
+        italianDictionary.putIfAbsent("spaghetti", "spaghetti");
+        italianDictionary.putIfAbsent("meat", "mięso");
+        italianDictionary.putIfAbsent("machine", "maszyna");
+        italianDictionary.putIfAbsent("air", "powietrze");
+        italianDictionary.putIfAbsent("add", "dodawać");
+        italianDictionary.putIfAbsent("after", "później");
+        italianDictionary.putIfAbsent("accept", "akceptować");
+        italianDictionary.putIfAbsent("phone", "telefon");
+        italianDictionary.putIfAbsent("shop", "sklep");
+        italianDictionary.putIfAbsent("arrow", "strzała");
+        italianDictionary.putIfAbsent("book", "książka");
+        italianDictionary.putIfAbsent("continue", "kontynuować");
+        italianDictionary.putIfAbsent("cool", "chłodny");
+        italianDictionary.putIfAbsent("definition", "definicja");
+        italianDictionary.putIfAbsent("factory", "fabryka");
+        italianDictionary.putIfAbsent("bike", "rower");
+
+        dictionaries.putIfAbsent("italian", italianDictionary);
+
+    }
+
+    private void fillEnglishDictionary() {
+        Map<String, String> englishDictionary = new HashMap<>();
+        englishDictionary.putIfAbsent("never", "nigdy");
+        englishDictionary.putIfAbsent("meat", "mięso");
+        englishDictionary.putIfAbsent("machine", "maszyna");
+        englishDictionary.putIfAbsent("air", "powietrze");
+        englishDictionary.putIfAbsent("add", "dodawać");
+        englishDictionary.putIfAbsent("after", "później");
+        englishDictionary.putIfAbsent("accept", "akceptować");
+        englishDictionary.putIfAbsent("phone", "telefon");
+        englishDictionary.putIfAbsent("shop", "sklep");
+        englishDictionary.putIfAbsent("arrow", "strzała");
+        englishDictionary.putIfAbsent("book", "książka");
+        englishDictionary.putIfAbsent("continue", "kontynuować");
+        englishDictionary.putIfAbsent("cool", "chłodny");
+        englishDictionary.putIfAbsent("definition", "definicja");
+        englishDictionary.putIfAbsent("factory", "fabryka");
+        englishDictionary.putIfAbsent("bike", "rower");
+
+        dictionaries.putIfAbsent("english", englishDictionary);
     }
 
 
@@ -47,43 +74,40 @@ public class NewQuiz {
 
 
     private void greetings() {
-            languageSelection();
-            String language = scanner.nextLine();
-            if(language.equals("3")){
-                System.out.println("Cześć, jak masz na imię");
-                String nameUser = scanner.nextLine();
-                System.out.println("Cześć " + nameUser);
-            }else if(language.equals("4")){
-                printOptionsEnglish();
-                System.out.println("Hello what's your name");
-                String nameUser = scanner.nextLine();
-                System.out.println("Hello " + nameUser);
-            }
-    }
-
-    private void printOptionsEnglish() {
-        System.out.println("If you click 1 you will start the word translation quiz");
-        System.out.println("The highest score of the quiz is " + highScore);
-        System.out.println("If you click 2 you can add your word");
-        System.out.println("If you click 3 you will close the program");
-    }
-
-    private void languageSelection() {
-        System.out.println("Jeśli klikniesz 3 Quzi będzie w języku polskim");
-        System.out.println("Jeśli klikniesz 4 Quzi będzie w języku angielskim");
+        System.out.println("Cześć, jak masz na imię");
+        String nameUser = scanner.nextLine();
+        System.out.println("Cześć " + nameUser);
     }
 
 
     private void showMenu() {
         while (true) {
+            chooseLanguage();
             printOptions();
             String option = scanner.nextLine();
             if (option.equals("1")) {
-                runQuiz(dictionary);
+                runQuiz(currentLanguage);
             } else if (option.equals("2")) {
-                ownWord(dictionary);
+                ownWord(currentLanguage);
             } else if (option.equals("3")) {
                 break;
+            }
+        }
+    }
+
+    private void chooseLanguage() {
+        while (true) {
+            System.out.println("Wybierz numer jezyka jaki chcesz");
+            List<String> languages = new ArrayList<>(dictionaries.keySet());
+            for (int i = 0; i < languages.size(); i++) {
+                System.out.println(i + ". " + languages.get(i));
+            }
+            int option = scanner.nextInt();
+            if (option < languages.size() && option >= 0) {
+                currentLanguage = dictionaries.get(languages.get(option));
+                break;
+            } else {
+                System.out.println("Wybrales zly numer, sprobuj jeszcze raz.");
             }
         }
     }
